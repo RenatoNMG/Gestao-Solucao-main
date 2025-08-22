@@ -120,6 +120,7 @@ body {
 .sidebar nav ul {
     list-style: none;
     width: 100%;
+    
 }
 
 .sidebar nav ul li {
@@ -136,6 +137,7 @@ body {
     align-items: center;
     flex-shrink: 0;
     background: #91A1A8;
+    margin: 5px;
 }
 
 .sidebar nav ul li a {
@@ -144,8 +146,8 @@ body {
 }
 
 
-.sidebar nav ul li:hover {
-    background-color: #5b7c8d;
+.sidebar nav ul li:hover  {
+    background-color: #5b7c8d !important;
 }
 
 .add-button i {
