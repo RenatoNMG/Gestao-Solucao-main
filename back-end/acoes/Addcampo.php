@@ -57,8 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <form action="Addcampo.php" method="POST">
+        <h1>Adicionar Campo</h1>
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+        <input type="text" id="nome" name="nome" maxlength="20" required>
 
         <label for="descricao">Descrição:</label>
         <textarea id="descricao" name="descricao"></textarea>

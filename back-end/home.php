@@ -9,11 +9,21 @@ if (!isset($_SESSION['token'])) {
 }
 require_once __DIR__ . '/dao/CampoDAO.php';
 require_once __DIR__ . '/model/Campo.php';
+require_once __DIR__ . '/dao/ModuloDAO.php';
+require_once __DIR__ . '/model/Modulo.php';
 
 
 $camposDAO = new CampoDAO();
 $campos = $camposDAO->listarCamposPorEmpresa($_SESSION['id_empresa']);
-  
+
+$moduloDAO = new ModuloDAO();
+$modulos = $moduloDAO->listarModulosPorEmpresa($_SESSION['id_empresa']);
+
+if(isset($_GET['id'])){
+    $id_campo = $_GET['id'];
+    $modulos = $moduloDAO->listarModulosPorCampo($id_campo,$_SESSION['id_empresa']);
+}
+
 
 
 ?>
@@ -49,24 +59,31 @@ $campos = $camposDAO->listarCamposPorEmpresa($_SESSION['id_empresa']);
         </header>
 
         <aside class="sidebar">
-            <nav>
-                <ul>
-                    
-                    <?php foreach($campos as $campo): ?>
-                        <li style="background-color: <?= $campo->getCor(); ?>"><a  href="#"><?= $campo->getNome(); ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
-            </nav>
+            <?php foreach ($campos as $campo): ?>
+                <a href="?id=<?= $campo->getIdCampo(); ?>">
+                    <nav>
+                        <ul>
+                            <li style="background-color: <?= $campo->getCor(); ?>"><?= $campo->getNome(); ?></li>
+                        </ul>
+                    </nav>
+                </a>
+            <?php endforeach; ?>
             <div class="add-button">
                 <a href="acoes/Addcampo.php"><i class="fas fa-plus-circle"></i></a>
             </div>
         </aside>
 
         <main class="main-content">
-            <div class="card">
-                <h2>Funcionarios</h2>
-                <p><strong>Nome:</strong>#</p>
-            </div>
+
+            <ul>
+                <?php foreach ($modulos as $modulo): ?>
+                    <li><a href="#"><?= $modulo->getNome(); ?></a></li>
+                <?php endforeach; ?>
+            </ul>
+
+            <?php if(isset($_GET['id'])): ?>
+                <a href="acoes/Adicionarmodulo.php?id_campo=<?= $_GET['id']; ?>">Adicionar</a>
+            <?php endif; ?>
 
         </main>
     </div>

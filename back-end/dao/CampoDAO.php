@@ -1,6 +1,6 @@
 <!-- -- Tabela campo
 CREATE TABLE campo (
-    id_campo INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     descricao TEXT,
     nivel INT NOT NULL,
@@ -52,7 +52,7 @@ class CampoDAO{
 
     foreach ($rows as $row) {
         $campos[] = new Campo(
-            (int)$row['id_campo'],
+            (int)$row['id'],
             $row['nome'],
             $row['descricao'],
             (int)$row['nivel'],
@@ -64,10 +64,10 @@ class CampoDAO{
     return $campos; // retorna array de objetos Campo
 }
 
-    public function buscarCampoPorId(int $id_campo) {
-        $query = "SELECT * FROM campo WHERE id_campo = :id_campo";
+    public function buscarCampoPorId(int $id) {
+        $query = "SELECT * FROM campo WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id_campo', $id_campo);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
         
         $campo = $stmt->fetchObject('Campo');
@@ -79,16 +79,16 @@ class CampoDAO{
     }
 
     public function atualizarCampo(Campo $campo) {
-        $query = "UPDATE campo SET nome = :nome, descricao = :descricao, nivel = :nivel, cor = :cor WHERE id_campo = :id_campo";
+        $query = "UPDATE campo SET nome = :nome, descricao = :descricao, nivel = :nivel, cor = :cor WHERE id = :id";
         $stmt = $this->conn->prepare($query);
 
-        $id_campo = $campo->getIdCampo();
+        $id = $campo->getIdCampo();
         $nome = $campo->getNome();
         $descricao = $campo->getDescricao();
         $nivel = $campo->getNivel();
         $cor = $campo->getCor();
 
-        $stmt->bindParam(':id_campo', $id_campo);
+        $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':descricao', $descricao);
         $stmt->bindParam(':nivel', $nivel);
@@ -100,10 +100,10 @@ class CampoDAO{
             return false;
         }
     }
-    public function excluirCampo(int $id_campo) {
-        $query = "DELETE FROM campo WHERE id_campo = :id_campo";
+    public function excluirCampo(int $id) {
+        $query = "DELETE FROM campo WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id_campo', $id_campo);
+        $stmt->bindParam(':id', $id);
 
         if ($stmt->execute()) {
             return true;

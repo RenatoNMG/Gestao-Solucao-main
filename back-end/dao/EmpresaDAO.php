@@ -28,7 +28,7 @@ class EmpresaDAO
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
             return new Empresa(
-                $row['id_empresa'],
+                $row['id'],
                 $row['nome'],
                 $row['email'],
                 $row['cnpj'],
@@ -49,7 +49,7 @@ class EmpresaDAO
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
             return new Empresa(
-                $row['id_empresa'],
+                $row['id'],
                 $row['nome'],
                 $row['email'],
                 $row['cnpj'],
