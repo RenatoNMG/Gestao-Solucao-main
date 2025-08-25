@@ -2,7 +2,6 @@
 
 session_start();
 
-
 if (!isset($_SESSION['token'])) {
     header('Location: cadastro/Cadastro.php'); // Redirecionar para a página de cadastro se não estiver autenticado
     exit();
@@ -14,34 +13,18 @@ require_once __DIR__ . '/dao/ModuloDAO.php';
 require_once __DIR__ . '/model/Modulo.php';
 require_once __DIR__ . '/dao/CardDAO.php';
 require_once __DIR__ . '/model/Card.php';
-require_once __DIR__ . '/dao/DadosDAO.php';
-require_once __DIR__ . '/model/Dados.php';
-
-
-
 
 $camposDAO = new CampoDAO();
-$dadosDAO = new DadosDAO();
-$cardsDAO = new CardDAO();
-$moduloDAO = new ModuloDAO();
-
 $campos = $camposDAO->listarCamposPorEmpresa($_SESSION['id_empresa']);
 
-
-
+$cardsDAO = new CardDAO();
+$moduloDAO = new ModuloDAO();
+$modulos = $moduloDAO->listarModulosPorEmpresa($_SESSION['id_empresa']);
 $cards = [];
-$modulos = [];
-$dados = [];
 
 if (isset($_GET['id_tabela'])) {
     $id_modulo = $_GET['id_tabela'];
     $cards = $cardsDAO->listarCardsPorModulo($id_modulo);
-} else {
-    $modulos = $moduloDAO->listarModulosPorEmpresa($_SESSION['id_empresa']);
-}
-if (isset($_GET['id'])) {
-    $id_campo = $_GET['id'];
-    $modulos = $moduloDAO->listarModulosPorCampo($id_campo, $_SESSION['id_empresa']);
 }
 
 
@@ -77,6 +60,7 @@ if (isset($_GET['id'])) {
             </div>
             <a href="acoes/sair.php"><button>Sair</button></a>
         </header>
+        
 
         <aside class="sidebar">
             <?php foreach ($campos as $campo): ?>
@@ -93,41 +77,22 @@ if (isset($_GET['id'])) {
             </div>
         </aside>
 
-
         <main class="main-content">
+            <a href="home.php">Voltar</a>
+            <?php foreach ($cards as $card): ?>
+                <div class="card">
+                    <h3><?= $card->getTitulo(); ?></h3>
+                    <div class="name">Produto A</div>
+                    <div class="value">R$ 1.200</div>
+                </div>
+                
+            <?php endforeach; ?>
 
-            <!-- modulos -->
-            <ul>
-                <?php foreach ($modulos as $modulo): ?>
-                    <li><a href="?id_tabela=<?= $modulo->getId(); ?>"><?= $modulo->getNome(); ?></a></li>
-                <?php endforeach; ?>
-            </ul>
-
-            <!-- cards -->
-            <div class="cards-table">
-                <?php foreach ($cards as $card): ?>
-                    <div class="card">
-                        <h3><?= $card->getTitulo(); ?></h3>
-                        <?php foreach ($dadosDAO->buscarDadosPorCard($card->getId()) as $dado): ?>
-                            <p><?= $dado->getValor(); ?></p>
-                        <?php endforeach; ?>
-                        <a href="acoes/Adddados.php?id_card=<?= $card->getId() ?>&id_tabela=<?= $_GET['id_tabela'] ?>">Adicionar</a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-
-
-
-            <!-- adicionar campo -->
-
-            <?php if (isset($_GET['id'])): ?>
-                <a href="acoes/Adicionarmodulo.php?id_campo=<?= $_GET['id']; ?>">Adicionar</a>
+            <?php if(isset($_GET['id_tabela'])): ?>
+                <a href="acoes/Adicionarmodulo.php?id_tabela=<?= $_GET['id_tabela'] ?>">Adicionar</a>
             <?php endif; ?>
-            <!-- adicionar tabela -->
 
-            <?php if (isset($_GET['id_tabela'])): ?>
-                <a href="acoes/Addcard.php?id_tabela=<?= $_GET['id_tabela'] ?>">Adicionar</a>
-            <?php endif; ?>
+            
 
         </main>
     </div>

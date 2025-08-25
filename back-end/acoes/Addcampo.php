@@ -12,12 +12,9 @@ CREATE TABLE campo (
 
 
 <?php
+
 session_start();
 
-if (!isset($_SESSION['token'])) {
-    header('Location: ../cadastro/Cadastro.php'); // Redirecionar para a página de cadastro se não estiver autenticado
-    exit();
-}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Conexão com o banco de dados
    $nome = $_POST['nome'];

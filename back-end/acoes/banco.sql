@@ -41,4 +41,18 @@ CREATE TABLE valor (
     valor DECIMAL(10,2) NOT NULL,
     id_campo INT,
     id_empresa INT
-) ENGINE=InnoDB;
+) 
+
+CREATE TABLE cards (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    id_modulo INT NOT NULL,
+    FOREIGN KEY (id_modulo) REFERENCES modulo(id) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE dados (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    valor VARCHAR(255) NOT NULL,
+    id_card INT NOT NULL,
+    FOREIGN KEY (id_card) REFERENCES cards(id) ON DELETE CASCADE ON UPDATE CASCADE
+); ENGINE=InnoDB;
