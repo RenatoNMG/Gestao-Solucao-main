@@ -72,9 +72,11 @@ if (isset($_GET['id'])) {
             <div class="title">
                 <h1>Gestão & Solução</h1>
             </div>
-            <div class="menu-icon">
+            
+            <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
+
             <a href="acoes/sair.php"><button>Sair</button></a>
         </header>
 
@@ -131,6 +133,16 @@ if (isset($_GET['id'])) {
 
         </main>
     </div>
+
+    <script>
+    const toggleBtn = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+    });
+</script>
+
 </body>
 
 </html>
