@@ -1,12 +1,11 @@
 <?php
 require_once __DIR__ . '/dao/ImagemController.php';
 
+session_start();
 // Instancia o Controller
 $controller = new ImagemController();
 
-// Defina o ID da empresa que deseja associar à imagem
-// Você pode obter isso do login do usuário ou outro contexto
-$idEmpresa = 1; // Exemplo fixo, substitua conforme necessário
+$idEmpresa = $_SESSION['id_empresa'];
 
 if (isset($_POST['enviar'])) {
     if (isset($_FILES['imagem'])) {
