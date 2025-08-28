@@ -18,7 +18,7 @@ CREATE TABLE campo (
     nome VARCHAR(255) NOT NULL,
     descricao TEXT,
     nivel_acesso INT NOT NULL,
-    nivel INT DEFAULT 0,            -- Coluna adicionada para compatibilidade com PHP
+    nivel INT DEFAULT 0,
     cor VARCHAR(7),
     id_empresa INT NOT NULL,
     FOREIGN KEY (id_empresa) REFERENCES empresa(id)
@@ -41,18 +41,30 @@ CREATE TABLE valor (
     valor DECIMAL(10,2) NOT NULL,
     id_campo INT,
     id_empresa INT
-) 
+) ENGINE=InnoDB;
 
+-- Tabela de Cards
 CREATE TABLE cards (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     id_modulo INT NOT NULL,
     FOREIGN KEY (id_modulo) REFERENCES modulo(id) ON DELETE CASCADE
-)ENGINE=InnoDB;
+) ENGINE=InnoDB;
 
+-- Tabela de Dados
 CREATE TABLE dados (
     id INT AUTO_INCREMENT PRIMARY KEY,
     valor VARCHAR(255) NOT NULL,
     id_card INT NOT NULL,
     FOREIGN KEY (id_card) REFERENCES cards(id) ON DELETE CASCADE ON UPDATE CASCADE
-); ENGINE=InnoDB;
+) ENGINE=InnoDB;
+
+-- Tabela de Imagens
+CREATE TABLE imagens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    caminho VARCHAR(255) NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_empresa INT NOT NULL,
+    CONSTRAINT fk_imagens_empresa FOREIGN KEY (id_empresa) REFERENCES empresa(id)
+) ENGINE=InnoDB;

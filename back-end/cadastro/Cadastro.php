@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['token'] = $token;
             $_SESSION['id_empresa'] = $cadastro->buscarEmpresaPorEmail($email)->getIdEmpresa();
             $campoDAO->adicionarCamposPadrao($_SESSION['id_empresa']);
-            header('Location: ../home.php'); // Redirecionar para uma página de sucesso
+            header('Location: ../Logo.php'); // Redirecionar para uma página de sucesso
             exit();
         } else {
             echo "Erro ao cadastrar empresa.";

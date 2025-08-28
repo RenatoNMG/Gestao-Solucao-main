@@ -16,6 +16,12 @@ require_once __DIR__ . '/dao/CardDAO.php';
 require_once __DIR__ . '/model/Card.php';
 require_once __DIR__ . '/dao/DadosDAO.php';
 require_once __DIR__ . '/model/Dados.php';
+require_once __DIR__ . '/dao/EmpresaDAO.php';
+require_once __DIR__ . '/model/Empresa.php';
+require_once __DIR__ . '/dao/ImagemController.php';
+require_once __DIR__ . '/model/Logo.php';
+
+
 
 
 
@@ -24,8 +30,13 @@ $camposDAO = new CampoDAO();
 $dadosDAO = new DadosDAO();
 $cardsDAO = new CardDAO();
 $moduloDAO = new ModuloDAO();
+$empresaDAO = new EmpresaDAO();
+$logoController = new ImagemController();
 
+
+$logo = $logoController->getImagemPorEmpresa($_SESSION['id_empresa']);
 $campos = $camposDAO->listarCamposPorEmpresa($_SESSION['id_empresa']);
+$empresa = $empresaDAO->buscarEmpresaPorId($_SESSION['id_empresa']);
 
 
 
@@ -43,6 +54,10 @@ if (isset($_GET['id'])) {
     $id_campo = $_GET['id'];
     $modulos = $moduloDAO->listarModulosPorCampo($id_campo, $_SESSION['id_empresa']);
 }
+
+$logoPath = ($logo && file_exists($logo->getCaminho()))
+            ? $logo->getCaminho()
+            : "https://static.vecteezy.com/ti/vetor-gratis/p1/5538023-forma-simples-montanha-preto-branco-circulo-logo-simbolo-icone-design-grafico-ilustracao-ideia-criativo-vetor.jpg";
 
 
 
@@ -63,22 +78,24 @@ if (isset($_GET['id'])) {
     <div class="container">
         <header class="header">
             <div class="logo">
-                <img src="logo.png" alt="Logo">
+                <a href="configuracao.php">
+                    <img src="<?= $logoPath ?>" alt="Logo">
+                </a>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+            <div class="title">
+                <h1> <?= $empresa ? $empresa->getNome() : "Gestão & Solução" ?></h1>
             </div>
             <div class="search-bar">
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Pesquisa">
             </div>
-            <div class="title">
-                <h1>Gestão & Solução</h1>
-            </div>
-            
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
 
-            <a href="acoes/sair.php"><button>Sair</button></a>
+            
         </header>
+
 
         <aside class="sidebar">
             <?php foreach ($campos as $campo): ?>
@@ -118,8 +135,6 @@ if (isset($_GET['id'])) {
                 <?php endforeach; ?>
             </div>
 
-
-
             <!-- adicionar campo -->
 
             <?php if (isset($_GET['id'])): ?>
@@ -135,13 +150,14 @@ if (isset($_GET['id'])) {
     </div>
 
     <script>
-    const toggleBtn = document.querySelector(".menu-toggle");
-    const sidebar = document.querySelector(".sidebar");
+        const toggleBtn = document.querySelector(".menu-toggle");
+        const sidebar = document.querySelector(".sidebar");
 
-    toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
-    });
-</script>
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("open");
+        });
+    </script>
+
 
 </body>
 
