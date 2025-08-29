@@ -102,7 +102,7 @@ $logoPath = ($logo && file_exists($logo->getCaminho()))
                 <a href="?id=<?= $campo->getIdCampo(); ?>">
                     <nav>
                         <ul>
-                            <li style="box-shadow: 5px 5px 2px <?= $campo->getCor(); ?>;border: 1px solid black">
+                            <li style="box-shadow: 3px 3px 1px <?= $campo->getCor(); ?>;border: 1px solid black">
                                 <?= $campo->getNome(); ?>
                             </li>
                         </ul>

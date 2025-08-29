@@ -124,31 +124,25 @@ body {
 .sidebar {
     background-color: #91A1A8;
     padding: 20px 0;
-    display: flex
+    display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 15px;
     align-items: center;
     overflow-y: auto;
     grid-area: sidebar;
     border-right: 1px solid #4a6572;
-    box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
     scrollbar-width: thin;
     scrollbar-color: #bdc3c7 transparent;
     position: fixed;
-    top: 70px;
-    /* sempre abaixo do header fixo */
+    top: 70px; /* sempre abaixo do header fixo */
     left: 0;
     width: 240px;
     height: calc(100% - 70px);
-    transform: translateX(0);;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-    grid-area: sidebar;
-    border-right: 1px solid #4a6572;
-    scrollbar-width: thin;
-    scrollbar-color: #bdc3c7 transparent;
-    transition:  0.4s ease-in-out; 
-
+    transform: translateX(0);
+    transition: 0.4s ease-in-out;
 }
+
 
 .sidebar a {
     text-decoration: none;
@@ -175,6 +169,8 @@ body {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    transition: 0.5s;
+    
 }
 
 .sidebar nav ul li a {
@@ -191,6 +187,10 @@ body {
 
 .sidebar nav ul li:hover {
     background-color: #5b7c8d !important;
+    transform: translateX(5px);
+    transform: translateY(3px);
+    box-shadow: 0 0px 0px #91A1A8 !important;
+    
 }
 
 .add-button i {

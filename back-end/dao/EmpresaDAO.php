@@ -145,7 +145,7 @@ class EmpresaDAO
         $nome = $empresa->getNome();
         $email = $empresa->getEmail();
         $cnpj = $empresa->getCnpj();
-        $senha = password_hash($empresa->getSenha(), PASSWORD_DEFAULT);
+        $senha = $empresa->getSenha();
         $token = $empresa->getToken();
 
         $stmt->bindParam(':id', $id);
