@@ -56,8 +56,8 @@ if (isset($_GET['id'])) {
 }
 
 $logoPath = ($logo && file_exists($logo->getCaminho()))
-            ? $logo->getCaminho()
-            : "https://static.vecteezy.com/ti/vetor-gratis/p1/5538023-forma-simples-montanha-preto-branco-circulo-logo-simbolo-icone-design-grafico-ilustracao-ideia-criativo-vetor.jpg";
+    ? $logo->getCaminho()
+    : "https://static.vecteezy.com/ti/vetor-gratis/p1/5538023-forma-simples-montanha-preto-branco-circulo-logo-simbolo-icone-design-grafico-ilustracao-ideia-criativo-vetor.jpg";
 
 
 
@@ -93,7 +93,7 @@ $logoPath = ($logo && file_exists($logo->getCaminho()))
                 <input type="text" placeholder="Pesquisa">
             </div>
 
-            
+
         </header>
 
 
@@ -102,7 +102,9 @@ $logoPath = ($logo && file_exists($logo->getCaminho()))
                 <a href="?id=<?= $campo->getIdCampo(); ?>">
                     <nav>
                         <ul>
-                            <li style="background-color: <?= $campo->getCor(); ?>"><?= $campo->getNome(); ?></li>
+                            <li style="box-shadow: 5px 5px 2px <?= $campo->getCor(); ?>;border: 1px solid black">
+                                <?= $campo->getNome(); ?>
+                            </li>
                         </ul>
                     </nav>
                 </a>
